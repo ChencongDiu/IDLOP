@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>IDLOP</title>
+    <meta name="description" content="Intelligent Diagnosis and Learning Open Platform" />
+    <meta name="keywords" content="Intelligent Diagnosis and Learning Open Platform" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <style type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
+
+        /*question slide*/
+        .slide{
+          position: relative;
+          left: 0px;
+          top: 0px;
+          width: 100%;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+        .active-slide{
+          opacity: 1;
+          z-index: 2;
+        }
+        .question_header{
+          position: relative;
+          height: 200px;
+          margin-top: 40px;
+        }
+        .options label{
+          display: block;
+          margin-bottom: 10px;
+        }
+
+    </style>
+    <%- include('./components/question_mathjax') %>
+  </head>
+<body>

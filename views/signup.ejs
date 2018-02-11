@@ -1,0 +1,176 @@
+<%- include('header') %>
+
+<div id="main">
+
+  <div id="menubar">
+    <div id="welcome">
+      <h1><a href="#"></a></h1>
+    </div><!--close welcome-->
+      <div id="menu_items">
+      <ul id="menu">
+          <li class="current"><a href="index.html">Home</a></li>
+          <!--<li><a href="ourwork.html">Our Work</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="projects.html">Projects</a></li>-->
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div><!--close menu-->
+    </div><!--close menubar-->
+
+  <div id="site_content">
+
+    <div id="content">
+        <div class="content_item">
+      <h1>    </h1>
+        <p> </p>
+
+     <table width="850" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" id="mainTable" align="center">
+  <tr align="center" width="850">
+    <td align="center">
+      <h4 id="" align="center">Welcome to Intelligent Diagnosis and Learning Open Platform</h4>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+
+  </tr>
+  <tr>
+    <td align="center">
+      <h5 id="">Please enter your personal information in the formats to sign up </h5>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+
+   <%- include('./components/notification') %>
+
+  </tr>
+  <form action="/signup" method="post">
+
+  <tr align="center">
+    <td>
+      <label>Email: </label>
+      <br>
+      <input placeholder="email" type="text" name="email">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>First Name: </label>
+      <br>
+      <input placeholder="first name" type="text" name="firstname">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>Last Name: </label>
+      <br>
+      <input placeholder="last name" type="text" name="lastname">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>Gender: </label>
+      <br>
+      <select class="gender" name="gender">
+          <option value="" selected disabled hidden>choose here</option>
+          <option value="m">Male</option>
+          <option value="f">Female</option>
+          <option value="x">Other</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>Grade: </label>
+      <br>
+      <select class="grade" name="grade">
+          <option value="" selected disabled hidden>choose here</option>
+          <option value=7>7th</option>
+          <option value=8>8th</option>
+          <option value=9>9th</option>
+          <option value=10>10th</option>
+          <option value=11>11th</option>
+          <option value=12>12th</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>Took SAT before?: </label>
+      <br>
+      <select class="takebefore" name="takebefore">
+          <option value="" selected disabled hidden>choose here</option>
+          <option value=y>Yes</option>
+          <option value=n>No</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <label>If yes, when?: </label>
+      <br>
+      <input id="taketime" type="month" name="taketime">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <input type="submit" value="Sign Up">
+    </td>
+
+  </tr>
+  </form>
+  </table>
+
+
+      </div><!--close content_container-->
+    </div><!--close content_item-->
+      </div><!--close content-->
+
+<%- include('footer') %>
