@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Intelligent Diagnosis and Learning Open Platform</title>
+  <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+  <style>
+    .row {
+      margin-top: 70px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          </button>
+          <a class="navbar-brand" href="#">IDLOP Manage System</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="#">Questions</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Questions</h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Subject#</th>
+                  <th>Set#</th>
+                  <th>Session#</th>
+                  <th>Question#</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% questions.forEach(function (question) { %>
+                  <tr>
+                    <td><%= question.subject_id %></td>
+                    <td><%= question.set_id %></td>
+                    <td><%= question.session_id %></td>
+                    <td><%= question.question_id %></td>
+                    <td><button class="btn btn-danger">delete</button>
+                        <button class="btn btn-info">edit</button></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const questions = <%- JSON.stringify(questions) %>;
+    console.log(questions);
+  </script>
+</body>
+</html>
