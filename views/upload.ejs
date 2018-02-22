@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Intelligent Diagnosis and Learning Open Platform</title>
+  <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    .row {
+      margin-top: 70px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          </button>
+          <a class="navbar-brand" href="/admin">IDLOP Manage System</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="/admin">Questions</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Questions Upload</h1>
+        <%- include('./components/notification') %>
+        <div class="container-fluid"><label style="margin: 30px 0 10px 0">Question Index</label></div>
+        <form action="/admin/upload" method="post">
+          <div class="col-lg-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                Subject#
+              </span>
+              <input type="text" class="form-control" name="subject_id" placeholder="subject_id">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                Set#
+              </span>
+              <input type="text" class="form-control" name="set_id" placeholder="set_id">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                Session#
+              </span>
+              <input type="text" class="form-control" name="session_id" placeholder="session_id">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                Question#
+              </span>
+              <input type="text" class="form-control" name="question_id" placeholder="question_id">
+            </div>
+          </div><!--
+
+          <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary">Check</button>
+          </div> -->
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="content">Question Content</label>
+            <textarea class="form-control" name="question_content" rows="15" placeholder="Content"></textarea>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="">A</label>
+            <textarea class="form-control" name="A" rows="5" placeholder="Option A"></textarea>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="">B</label>
+            <textarea class="form-control" name="B" rows="5" placeholder="Option B"></textarea>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="">C</label>
+            <textarea class="form-control" name="C" rows="5" placeholder="Option C"></textarea>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="">D</label>
+            <textarea class="form-control" name="D" rows="5" placeholder="Option D"></textarea>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for="">Correct Answer</label>
+            <select class="form-control" name="correct_answer">
+              <option value="" selected disabled hidden></option>
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+              <option>D</option>
+            </select>
+          </div>
+
+          <div class="col-lg-8">
+            <label style="margin: 30px 0 10px 0" for=""></label>
+            <div class="btn-group btn-group-justified" role="group">
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+            </div>
+            <label style="margin: 30px 0 30px 0" for=""></label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
