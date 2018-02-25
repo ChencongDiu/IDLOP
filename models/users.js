@@ -1,8 +1,8 @@
 /*
 * @Author: x
 * @Date:   2018-02-04 10:50:23
-* @Last Modified by:   x
-* @Last Modified time: 2018-02-05 15:14:31
+* @Last Modified by:   ChencongDiu
+* @Last Modified time: 2018-02-23 23:40:26
 */
 const User = require('../lib/mongo.js').User;
 
