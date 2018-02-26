@@ -11,6 +11,13 @@ body
   color: #000;
 }
 
+#signuplabel {
+  width: 150px;
+  margin-left: 31.5%;
+  font-weight: bold;
+  float: left;
+}
+
 p
 { padding: 0 0 10px 0;
   line-height: 1.7em;

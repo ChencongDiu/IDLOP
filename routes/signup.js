@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2018-02-03 10:50:36
 * @Last Modified by:   x
-* @Last Modified time: 2018-02-05 15:32:14
+* @Last Modified time: 2018-02-25 17:56:18
 */
 const fs = require('fs');
 const path = require('path');
@@ -23,14 +23,14 @@ router.post('/', (req, res, next) => {
   const gender = req.fields.gender;
   const grade = parseInt(req.fields.grade);
   const takebefore = req.fields.takebefore;
-  var taketime = req.fields.taketime;
+  /*var taketime = req.fields.taketime;
   console.log('email: ' + email + ', type: ' + typeof(email));
   console.log('firstname: ' + firstname + ', type: ' + typeof(firstname));
   console.log('lastname: ' + lastname + ', type: ' + typeof(lastname));
   console.log('gender: ' + gender + ', type: ' + typeof(gender));
   console.log('grade: ' + grade + ', type: ' + typeof(grade));
   console.log('takebefore: ' + takebefore + ', type: ' + typeof(takebefore));
-  console.log('taketime: ' + taketime + ', type: ' + typeof(taketime));
+  console.log('taketime: ' + taketime + ', type: ' + typeof(taketime));*/
   // check validation
   try {
     if (!emailValidator.validate(email)) {
@@ -75,13 +75,13 @@ router.post('/', (req, res, next) => {
   UserModel.create(user)
     .then((result) => {
       const sessionUser = result.ops[0];
-      console.log(sessionUser);
+      // console.log(sessionUser);
       req.session.user = sessionUser;
       req.flash('success', 'Sign Up Succeeded!');
       res.redirect('/subject');
     })
     .catch((e) => {
-      console.log(e.message);
+      // console.log(e.message);
       if (e.message.match('duplicate key')) {
         req.flash('error', 'This Email Address Has Already Been Used!');
         return res.redirect('/signup');

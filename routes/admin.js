@@ -1,12 +1,14 @@
 /*
 * @Author: x
 * @Date:   2018-02-03 10:53:19
-* @Last Modified by:   x
-* @Last Modified time: 2018-02-21 17:27:13
+* @Last Modified by:   ChencongDiu
+* @Last Modified time: 2018-02-26 00:40:27
 */
+const fs = require('fs');
 const express = require('express');
 const router = express.Router();
 const QuestionModel = require('../models/questions');
+const path = require('path');
 
 router.get('/', (req, res, next) => {
   QuestionModel.getQuestion()
@@ -31,7 +33,9 @@ router.post('/upload', (req, res, next) => {
   const set_id = parseInt(req.fields.set_id);
   const session_id = parseInt(req.fields.session_id);
   const question_id = parseInt(req.fields.question_id);
-  const question_content = req.fields.question_content;
+  const question_content_text = req.fields.question_content_text;
+  // const question_content_image = req.files.question_content_image.path.split(path.sep).pop();
+  const question_content_image = req.files.question_content_image.name;
   const A = req.fields.A;
   const B = req.fields.B;
   const C = req.fields.C;
@@ -52,9 +56,9 @@ router.post('/upload', (req, res, next) => {
     if (!question_id) {
       throw new Error('Please Provide Valid Question Number!')
     }
-
-    if (!question_content) {
-      throw new Error('Please Provide Valid Question Content!')
+    // both or none
+    if (!(question_content_text.length === 0 ^ question_content_image.length === 0)) {
+      throw new Error('Please Provide Question Content in Only One Type!')
     }
     if (!(A && B && C && D)) {
       throw new Error('Please Provide Options!')
@@ -63,6 +67,7 @@ router.post('/upload', (req, res, next) => {
       throw new Error('Please Choose a Correct Answer!')
     }
   } catch (e) {
+    fs.unlink(req.files.question_content_image.path);
     req.flash('error', e.message);
     return res.redirect('back');
   }
@@ -74,6 +79,8 @@ router.post('/upload', (req, res, next) => {
     D: D
   }
 
+  const question_content = question_content_text.length === 0? req.files.question_content_image.path.split(path.sep).pop(): question_content_text;
+
   let newQuestion = {
     subject_id: subject_id,
     set_id: set_id,
@@ -84,7 +91,7 @@ router.post('/upload', (req, res, next) => {
     correct_answer: correct_answer
   }
 
-  // console.log(newQuestion);
+  console.log(newQuestion);
 
   QuestionModel.create(newQuestion)
     .then((result) => {
@@ -94,6 +101,7 @@ router.post('/upload', (req, res, next) => {
     })
     .catch((e) => {
       console.log(e.message);
+      fs.unlink(req.files.question_content_image.path);
       if (e.message.match('duplicate key')) {
         req.flash('error', 'Duplicated Question Index!');
         return res.redirect('/admin/upload');

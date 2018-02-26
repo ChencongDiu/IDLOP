@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Intelligent Diagnosis and Learning Open Platform</title>
+  <title>Learn2Smart</title>
   <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
@@ -17,12 +17,12 @@
       <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           </button>
-          <a class="navbar-brand" href="/admin">IDLOP Manage System</a>
+          <a class="navbar-brand" href="/admin">L2S Manage System</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -40,7 +40,7 @@
         <h1 class="page-header">Questions Upload</h1>
         <%- include('./components/notification') %>
         <div class="container-fluid"><label style="margin: 30px 0 10px 0">Question Index</label></div>
-        <form action="/admin/upload" method="post">
+        <form action="/admin/upload" method="post" enctype="multipart/form-data">
           <div class="col-lg-2">
             <div class="input-group">
               <span class="input-group-addon">
@@ -82,8 +82,23 @@
           </div> -->
 
           <div class="col-lg-8">
-            <label style="margin: 30px 0 10px 0" for="content">Question Content</label>
-            <textarea class="form-control" name="question_content" rows="15" placeholder="Content"></textarea>
+            <label style="margin: 30px 0 10px 0" for="content">Question Content (Please Choose Only One Type)</label>
+            <ul class="nav nav-tabs" id="contentTabs">
+              <li role="presentation" class="active">
+                <a href="#text" id="content-text-tab" data-toggle="tab" aria-controls="text" aria-expanded="true">Text</a>
+              </li>
+              <li role="presentation">
+                <a href="#image" id="content-image-tab" data-toggle="tab" aria-controls="image" aria-expanded="false">Image</a>
+              </li>
+            </ul>
+            <div id="contentContent" class="tab-content">
+              <div class="tab-pane fade active in" id="text" aria-labelledby="text-tab">
+                <textarea class="form-control" name="question_content_text" rows="15" placeholder="Content"></textarea>
+              </div>
+              <div class="tab-pane fade" id="image" aria-labelledby="image-tab">
+                <input type="file" class="form-control" name="question_content_image">
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-8">
@@ -130,5 +145,10 @@
       </div>
     </div>
   </div>
+  <script src="/bootstrap/jquery-2.1.1.min.js"></script>
+  <script src="/bootstrap/bootstrap.min.js"></script>
+  <script>
+
+  </script>
 </body>
 </html>

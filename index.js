@@ -1,8 +1,8 @@
 /*
 * @Author: x
 * @Date:   2018-02-03 12:52:00
-* @Last Modified by:   x
-* @Last Modified time: 2018-02-05 12:10:23
+* @Last Modified by:   ChencongDiu
+* @Last Modified time: 2018-02-25 22:04:51
 */
 const path = require('path');
 const express = require('express');
@@ -48,7 +48,10 @@ app.use(session({
 
 app.use(flash());
 // submit form
-app.use(formidable());
+app.use(formidable({
+  uploadDir: path.join(__dirname, 'public/img'),
+  keepExtensions: true
+}));
 
 app.use(function (req, res, next) {
   res.locals.user = req.session.user;
