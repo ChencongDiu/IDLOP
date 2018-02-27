@@ -6,9 +6,28 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
+    #site_content {
+      overflow: auto;
+    }
+    #content {
+      width: 920px;
+      overflow: auto;
+    }
+    #quiz-container{
+      position: relative;
+      height: 100%;
+      margin-top: 40px;
+      overflow: auto;
+    }
+    #quiz {
+      position: relative;
+      width: 100%;
+      height: 800px;
+    }
     .answers label{
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 20px;
     }
     .slide{
       position: absolute;
@@ -18,19 +37,34 @@
       z-index: 1;
       opacity: 0;
       transition: opacity 0.5s;
+      font-size: 20px;
     }
     .active-slide{
       opacity: 1;
       z-index: 2;
     }
-    .quiz-container{
-      position: relative;
-      height: 400px;
-      margin-top: 40px;
+    #btns {
+      align: center;
     }
-    .button{
+    .btn-group {
       position: relative;
-      top: 40px;
+      text-align: center;
+    }
+    button {
+      background-color: white;
+      border: 1px solid;
+      border-color: #e7e7e7;
+      border-radius: 12px;
+      color: black;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      outline: none;
+    }
+    button:hover {
+      background-color: #e7e7e7;
     }
   </style>
   <%- include('components/question_mathjax') %>
@@ -50,34 +84,64 @@
 
     <div id="site_content">
       <div id="content">
-        <div class="content_item">
-          <table width="768" cellpadding="0" cellspacing="1" border="0" bgcolor="#FFFFFF" id="mainTable">
-            <tr>
-              <td>
-                <div id="question_header">
-                  <h4 id="question_title"></h4>
-                </div>
-                <div class="quiz-container">
-                  <div id="quiz"></div>
-                </div>
-                <button id="previous">Back</button>
-                <button id="next">Next</button>
-                <button id="submit">Submit</button>
-                <div id="results"></div>
-              </td>
-            </tr>
-          </table>
-        </div><!--close content_container-->
-      </div><!--close content_item-->
+        <div id="question_header">
+          <h4 id="question_title" style="text-align: right; margin-top: 15px"></h4>
+        </div>
+
+        <div id="quiz-container">
+          <div id="quiz">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" id="previous">Back</button>
+          <button type="button" id="next">Next</button>
+          <button type="button" id="submit">Submit</button>
+        </div>
+
+        <div id="results"></div>
+      </div><!--close content_container-->
     </div><!--close content-->
   </div>
 
   <script type="text/javascript">
     (function() {
       const myQuestions = <%- JSON.stringify(questions) %>;
+      var imgExt = new Array(".jpg", ".png", ".gif", ".bmp");
+
+      function isImg(body) {
+        var index = body.lastIndexOf(".");
+        var ext = index > -1? body.substring(index): null;
+        for (var i = 0; i < imgExt.length; i++) {
+          if (imgExt[i] === ext) {
+            return true;
+          }
+        }
+        return false;
+      }
 
       function buildQuiz() {
         const output = [];
+        // push starter
+        output.push(
+        `<div class="slide">
+          <div id="content">
+            <div class="content_item" style="width: 100%">
+              <p align="center" style="font-size:200%;">Question Type</p>
+              <p>
+              Session Instruction: <br>
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              There are ${myQuestions.length} questions in this session.
+              </p>
+            </div><!--close content_item-->
+          </div><!--close content-->
+        </div>`
+        );
 
         myQuestions.forEach((currentQuestion, questionNumber) => {
           const answers = [];
@@ -90,20 +154,36 @@
             );
           }
 
-          output.push(
+          if (isImg(currentQuestion.question)) {
+            // console.log("is img");
+            var imgSrc = "/img/" + currentQuestion.question;
+            // console.log(imgSrc);
+            output.push(
+            `<div class="slide">
+              <div class="question">
+                <img src="${imgSrc}" alt="question_content_img">
+              </div><br>
+               <div class="answers"> ${answers.join("")} </div>
+             </div>`
+            );
+          } else {
+            // console.log("is not img");
+            output.push(
             `<div class="slide">
                <div class="question"> ${currentQuestion.question} </div><br>
                <div class="answers"> ${answers.join("")} </div>
              </div>`
-          );
+            );
+          }
+
         });
 
-        quizContainer.innerHTML = output.join("");
+        quiz.innerHTML = output.join("");
       }
 
       function showResults() {
         // gather answer containers from our quiz
-        const answerContainers = quizContainer.querySelectorAll(".answers");
+        const answerContainers = quiz.querySelectorAll(".answers");
 
         // keep track of user's answers
         let numCorrect = 0;
@@ -134,22 +214,52 @@
       }
 
       function showSlide(n) {
-        slides[currentSlide].classList.remove("active-slide");
-        slides[n].classList.add("active-slide");
+        previousSlide = currentSlide;
         currentSlide = n;
+        slides[previousSlide].classList.remove("active-slide");
+        slides[currentSlide].classList.add("active-slide");
+        console.log(previousSlide);
+        console.log(currentSlide);
+        var currentSlideElement = document.getElementsByClassName("active-slide")[0];
+        var quizElement = document.getElementById("quiz");
+        quizElement.style.height = currentSlideElement.clientHeight + 'px';
+        quizElement.style.overflow = "hidden";
 
+        // button control
+        // starter page, c === 0
         if (currentSlide === 0) {
           previousButton.style.display = "none";
-        } else {
-          previousButton.style.display = "inline-block";
+          nextButton.style.display = "inline-block";
+          nextButton.innerHTML = "Start Now";
+          submitButton.style.display = "none";
         }
-
-        if (currentSlide === slides.length - 1) {
+        // first question, c === 1
+        else if (currentSlide === 1) {
+          previousButton.style.display = "inline-block";
+          previousButton.disabled = true;
+          nextButton.style.display = "inline-block";
+          nextButton.innerHTML = "Next";
+          submitButton.style.display = "none";
+        }
+        // c != last question
+        else if (currentSlide != slides.length - 1) {
+          previousButton.style.display = "inline-block";
+          previousButton.disabled = false;
+          nextButton.style.display = "inline-block";
+          nextButton.innerHTML = "Next";
+          submitButton.style.display = "none";
+        }
+        // c === last question
+        else {
+          previousButton.style.display = "inline-block";
+          previousButton.disabled = false;
           nextButton.style.display = "none";
           submitButton.style.display = "inline-block";
-        } else {
-          nextButton.style.display = "inline-block";
-          submitButton.style.display = "none";
+        }
+
+        // title control
+        if (currentSlide != 0) {
+          question_title.innerHTML = `${currentSlide} / ${slides.length - 1}`;
         }
       }
 
@@ -161,7 +271,7 @@
         showSlide(currentSlide - 1);
       }
 
-      const quizContainer = document.getElementById("quiz");
+      const quiz = document.getElementById("quiz");
       const resultsContainer = document.getElementById("results");
       const submitButton = document.getElementById("submit");
 
@@ -170,10 +280,12 @@
 
       const previousButton = document.getElementById("previous");
       const nextButton = document.getElementById("next");
+      const question_title = document.getElementById("question_title");
       const slides = document.querySelectorAll(".slide");
       let currentSlide = 0;
+      let previousSlide = 0;
 
-      showSlide(0);
+      showSlide(currentSlide);
 
       // on submit, show results
       submitButton.addEventListener("click", showResults);

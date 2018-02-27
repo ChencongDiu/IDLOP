@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2018-02-06 15:55:51
 * @Last Modified by:   ChencongDiu
-* @Last Modified time: 2018-02-23 23:38:54
+* @Last Modified time: 2018-02-26 13:38:52
 */
 const Question = require('../lib/mongo').Question;
 
@@ -40,7 +40,7 @@ module.exports = {
   getQuestionBySubjectSetSession: function getQuestionBySubjectSetSession(subject_id, set_id, session_id) {
     return Question
       .find({subject_id: subject_id, set_id: set_id, session_id: session_id})
-      .sort({question_id: 1})
+      .sort({question_id: -1})
       .exec()
   },
 
